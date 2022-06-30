@@ -40,6 +40,7 @@
         },
       };
 
+      //API 불러내는 함수
       const fetchCat = async (text) => {
         const OPEN_API_DOMAIN = "https://cataas.com";
         const response = await fetch(`${OPEN_API_DOMAIN}/cat/says/${text}?json=true`);
@@ -106,6 +107,7 @@
         );
       };
 
+      //수정(1)
       function Favorites({favorites}){
         if(favorites.length === 0) {
           return <div>사진위 하트를 눌러 고양이 사진을 저장해보세요!</div>;
@@ -118,6 +120,7 @@
         );
       };
 
+      //수정(2-3)
       const MainCard = ({img,onHeartClick,alreadyFavorite}) => {
         const hearIcon = alreadyFavorite ? "💖": "🤍" ;
 
@@ -139,16 +142,15 @@
         const CAT2 = "https://cataas.com//cat/5e9970351b7a400011744233/says/inflearn";
         const CAT3 = "https://cataas.com/cat/595f280b557291a9750ebf65/says/JavaScript";
 
-        const [counter, setCounter]  = React.useState(() => {
-          return jsonLocalStorage.getItem("counter")
-        });
-
+        const [counter, setCounter] = React.useState(
+          jsonLocalStorage.getItem("counter")
+        );
         const [mainCat, setMainCat] = React.useState(CAT1);
+        const [favorites, setFavorites] = React.useState(
+          jsonLocalStorage.getItem("favorites") || []
+        ); 
 
-        const [favorites, setFavorites] = React.useState(() => {
-          return jsonLocalStorage.getItem("favorites") || [];
-        });
-
+        //수정(2-1)
         const alreadyFavorite = favorites.includes(mainCat); 
 
         async function setInitialCat() {
@@ -162,15 +164,11 @@
 
         async function updateMainCat(value){
           const newCat = await fetchCat(value);
-
-          setMainCat(newCat);
-
-          setCounter((prev) => {         
-            const nextCounter = prev +1;
-            jsonLocalStorage.setItem("counter", nextCounter); 
-            return nextCounter;
-          });
-        } 
+          setMainCat(newCat);         
+          const nextCounter = counter +1;
+          setCounter(nextCounter);
+          jsonLocalStorage.setItem("counter", nextCounter); 
+        }
 
         function handleHeartClick(){
           const nextFavorites = [...favorites,mainCat];
@@ -178,8 +176,10 @@
           jsonLocalStorage.setItem("favorites", nextFavorites);
         };
 
+        //수정(3)
         const counterTitle = counter === null ? "" : counter + "번째 ";
 
+        //수정(2-2)-><MainCard/>
         return(
           <div>
             <Title>{counterTitle}고양이 가라사대</Title>
@@ -198,3 +198,17 @@
     </script>
   </body>
 </html>
+
+<!-- 
+>>>조건부 렌더링(Conditional Rendering) :  어떤 조건일때 원하는걸 보여준다
+애플리케이션탭에서 favorites 목록을 클릭해서 삭제한후 메시지 뜨는지 확인!!
+
+(1)즐겨찾기를 누른 고양이가 하나도 없을때는 메세지 띄우기
+->"사진위 하트를 눌러 고양이 사진을 저장해보세요!"
+
+(2)하트를 눌렀을때 하트를 누른 상태면 빨간하트, 아니면 하얀 하트
+
+(3)맨위 제목에 카운터가 없으면 번째가 나오지 않게 하기
+->counter 가 null 이면 'n번째'를 삭제하고 "고양이 가라사대" 만 보여주기
+
+-->

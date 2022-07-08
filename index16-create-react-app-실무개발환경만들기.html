@@ -266,18 +266,58 @@ cd ../
 
 git add .
 git commit -m "made CRA" 
+git remote add origin https://github.com/web1004/cat-maker2.git
 git push origin master
 
+*깃허브에 파일이 올라간 것을 확인하고 빌드작업을 한다.
+다시 경로이동...
+
+cd cat-maker-cra
+
+*빌드....
+npm run build  
+
+->완료가 되었으면 빌드폴더가 생성되어있음 :JSX가 아닌 브라우저가 인식할수 있는 파일이 생성이 되는것이다.
+->github에 빌드폴더를 올려야 하는데 github pages 라이브러리가 필요함
+
+*github pages 라이브러리 다운...
+npm install gh-pages
+
+->그 다음에 github pages를 통해 빌드폴더를 깃헙에 올리는 작업을 해야 한다.
+
+*package.json 파일에 가서....
+
+"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build" (추가)
+  },
+
+맨위에 추가(주소는 Github pages에 있는 주소를 복사해서 붙인다.)
+
+{
+  "homepage": "https://web1004.github.io/cat-maker2",
 
 
+*그런 다음에 다시 빌드를 한다.
+
+npm run build
+
+npm run deploy
 
 
+*최종적으로 깃허브에서 메세지를 확인한다.
+->상단에 노랑박스안의 글자가 표시됨(빌드완료!)
+
+gh-pages had recent pushes less than a minute ago
 
 
+*상단의 Settings 클릭->왼쪽의  Pages 메뉴 클릭!
 
+->Select Branch 에 gh-pages 가 추가된것을 확인 할 수 있다.
+->gh-pages을 선택하고 Save 클릭!!
 
-
-
-
-
+<끝>
 -->

@@ -2,12 +2,12 @@ import CatItem from "./CatItem";
 
 function Favorites({favorites}){
   if(favorites.length === 0) {
-    return <div>사진위 하트를 눌러 고양이 사진을 저장해보세요!</div>;
+    return <div style={{color:"crimson", fontWeight:"bold", marginTop:"10px"}}>사진위 하트를 눌러 고양이 사진을 저장해보세요!</div>;
   }
   
   return (
     <ul className="favorites">
-      {favorites.map(cat => <CatItem img={cat} key={cat} />)}
+      {favorites.map(cat => <CatItem img={cat} key={cat} />)}    
     </ul>
   );
 };

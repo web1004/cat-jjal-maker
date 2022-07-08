@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap');
+
 body {
   text-align: center;
 }
@@ -12,4 +14,15 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   gap: 15px;
+}
+
+.title{
+  font-family: 'Yeon Sung', cursive;
+  font-size:36px;
+}
+
+.title-img{
+  margin-top:-20px;
+  margin-bottom: 30px;
+  width: 200px;
 }
